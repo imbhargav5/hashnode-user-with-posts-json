@@ -1,0 +1,15 @@
+name: 'hashnode-user-with-posts-json'
+description: 'Get basic user info and recent posts from hashnode as json'
+inputs:
+  username:
+    required: true  
+    description: 'The hashnode username'
+outputs:
+  data:
+    description: 'Stringified JSON response that you can parse and use'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'message-square'  
+  color: 'gray-dark'

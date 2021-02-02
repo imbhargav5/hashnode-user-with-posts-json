@@ -1,0 +1,34 @@
+const { gql, GraphQLClient } =  require('graphql-request')
+
+
+const client = new GraphQLClient('https://api.hashnode.com')
+
+const query = gql`
+   query getUserPosts($username: String!) {
+    user(username: $username) {
+      name
+      numFollowers
+      numReactions
+      publicationDomain
+      publication{
+          posts{
+              title
+              slug
+              
+          }
+      }
+    }
+  }
+`
+
+async function getHashnodePosts(username){
+    try{
+        const data = await client.request(query, {username})
+        return data;
+    }catch(err){
+        console.log(err)
+        return {}
+    }
+}
+
+module.exports = getHashnodePosts
