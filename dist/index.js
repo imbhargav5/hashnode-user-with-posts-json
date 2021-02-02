@@ -41,40 +41,45 @@ if (require.main === require.cache[eval('__filename')]) {
 /***/ 283:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const { gql, GraphQLClient } =  __webpack_require__(556)
+const { gql, GraphQLClient } = __webpack_require__(556);
 
-
-const client = new GraphQLClient('https://api.hashnode.com')
+const client = new GraphQLClient("https://api.hashnode.com");
 
 const query = gql`
-   query getUserPosts($username: String!) {
+  query getUserPosts($username: String!) {
     user(username: $username) {
       name
+      username
+      photo
+      coverImage
       numFollowers
       numReactions
       publicationDomain
-      publication{
-          posts{
-              title
-              slug
-              
-          }
+      publication {
+        posts {
+          title
+          coverImage
+          brief
+          cuid
+          bookmarkedIn
+        }
       }
     }
   }
-`
+`;
 
-async function getHashnodePosts(username){
-    try{
-        const data = await client.request(query, {username})
-        return data;
-    }catch(err){
-        console.log(err)
-        return {}
-    }
+async function getHashnodePosts(username) {
+  try {
+    const data = await client.request(query, { username });
+    return data;
+  } catch (err) {
+    console.log(err);
+    return {};
+  }
 }
 
-module.exports = getHashnodePosts
+module.exports = getHashnodePosts;
+
 
 /***/ }),
 
